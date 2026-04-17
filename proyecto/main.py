@@ -8,7 +8,7 @@ def index():
 
 @app.route("/login")
 def login():
-    return render_template("inicio_sesion.html")
+    return render_template("iniciar_sesion.html")
 
 @app.route("/registro")
 def registro():

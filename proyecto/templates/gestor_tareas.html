@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Tareas{% endblock %}
+
+{% block content %}
+<h2>Gestor de tareas</h2>
+
+<form class="mb-3">
+    <input type="text" class="form-control" placeholder="Nueva tarea">
+</form>
+
+<ul class="list-group">
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+        Tarea de ejemplo
+        <button class="btn btn-danger btn-sm">Eliminar</button>
+    </li>
+</ul>
+{% endblock %}
