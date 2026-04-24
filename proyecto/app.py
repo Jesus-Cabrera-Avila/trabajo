@@ -1,7 +1,16 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect
+from pymongo import MongoClient
 
 app = Flask(__name__)
 
+# Conexión a MongoDB
+uri = "mongodb+srv://24308060610607_db_user:J260909c@dmc5.af41dor.mongodb.net/?retryWrites=true&w=majority"
+client = MongoClient(uri)
+
+db = client["mi_app"]
+usuarios = db["usuarios"]
+
+# Rutas principales
 @app.route("/")
 def index():
     return render_template("index.html")
@@ -22,5 +31,32 @@ def recuperar():
 def tareas():
     return render_template("gestor_tareas.html")
 
+# Registro
+@app.route("/registrar", methods=["POST"])
+def registrar():
+    usuario = request.form["usuario"]
+    password = request.form["password"]
+
+    usuarios.insert_one({
+        "usuario": usuario,
+        "password": password
+    })
+
+    return redirect("/login")
+
+# Login
+@app.route("/iniciar", methods=["POST"])
+def iniciar():
+    usuario = request.form["usuario"]
+    password = request.form["password"]
+
+    user = usuarios.find_one({"usuario": usuario})
+
+    if user and user["password"] == password:
+        return redirect("/tareas")
+    else:
+        return render_template("iniciar_sesion.html", error="Usuario o contraseña incorrectos")
+
+# Ejecutar app
 if __name__ == "__main__":
     app.run(debug=True)
