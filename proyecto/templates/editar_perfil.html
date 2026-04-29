@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}Editar perfil{% endblock %}
+
+{% block content %}
+<div class="container d-flex justify-content-center">
+    <div class="col-md-5">
+        <div class="card p-4 shadow" style="background-color:#1f2a36;color:white;border-radius:15px;">
+
+            <h3 class="mb-3 text-center">Editar perfil</h3>
+
+            {% if error %}
+            <div class="alert alert-danger text-center">{{ error }}</div>
+            {% endif %}
+
+            <form action="/actualizar_perfil" method="POST">
+
+                <div class="mb-3">
+                    <label>Email</label>
+                    <input type="email" name="usuario" class="form-control"
+                        value="{{ user.usuario }}" required>
+                </div>
+
+                {% set fecha = user.get("fecha_nacimiento", "") %}
+
+                <label>Fecha de nacimiento</label>
+                <div class="row mb-3">
+                    <div class="col">
+                        <input type="text" name="dia" class="form-control"
+                            value="{{ fecha.split('/')[0] if fecha else '' }}">
+                    </div>
+                    <div class="col">
+                        <input type="text" name="mes" class="form-control"
+                            value="{{ fecha.split('/')[1] if fecha else '' }}">
+                    </div>
+                    <div class="col">
+                        <input type="text" name="anio" class="form-control"
+                            value="{{ fecha.split('/')[2] if fecha else '' }}">
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label>Género</label>
+
+                    <div>
+                        <input type="radio" name="genero" value="masculino"
+                        {% if user.get("genero") == "masculino" %}checked{% endif %}> Masculino
+                    </div>
+
+                    <div>
+                        <input type="radio" name="genero" value="femenino"
+                        {% if user.get("genero") == "femenino" %}checked{% endif %}> Femenino
+                    </div>
+
+                    <div>
+                        <input type="radio" name="genero" value="otro"
+                        {% if user.get("genero") == "otro" %}checked{% endif %}> Otro
+                    </div>
+                </div>
+
+                <button class="btn btn-primary w-100">Guardar cambios</button>
+
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
