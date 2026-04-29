@@ -16,49 +16,62 @@
             <form action="/actualizar_perfil" method="POST">
 
                 <div class="mb-3">
-                    <label>Email</label>
+                    <label class="form-label" style="color: #4da3ff;">Email</label>
                     <input type="email" name="usuario" class="form-control"
+                        style="background-color: #2c3e50; color: white; border: none;"
                         value="{{ user.usuario }}" required>
                 </div>
 
                 {% set fecha = user.get("fecha_nacimiento", "") %}
 
-                <label>Fecha de nacimiento</label>
+                <label class="form-label" style="color: #4da3ff;">Fecha de nacimiento</label>
                 <div class="row mb-3">
                     <div class="col">
                         <input type="text" name="dia" class="form-control"
+                            style="background-color: #2c3e50; color: white; border: none;"
                             value="{{ fecha.split('/')[0] if fecha else '' }}">
                     </div>
                     <div class="col">
                         <input type="text" name="mes" class="form-control"
+                            style="background-color: #2c3e50; color: white; border: none;"
                             value="{{ fecha.split('/')[1] if fecha else '' }}">
                     </div>
                     <div class="col">
                         <input type="text" name="anio" class="form-control"
+                            style="background-color: #2c3e50; color: white; border: none;"
                             value="{{ fecha.split('/')[2] if fecha else '' }}">
                     </div>
                 </div>
 
                 <div class="mb-3">
-                    <label>Género</label>
+                    <label class="form-label" style="color: #4da3ff;">Género</label>
 
-                    <div>
-                        <input type="radio" name="genero" value="masculino"
-                        {% if user.get("genero") == "masculino" %}checked{% endif %}> Masculino
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="genero" value="masculino"
+                        {% if user.get("genero") == "masculino" %}checked{% endif %}>
+                        <label class="form-check-label" style="color: #4da3ff;">
+                            Masculino
+                        </label>
                     </div>
 
-                    <div>
-                        <input type="radio" name="genero" value="femenino"
-                        {% if user.get("genero") == "femenino" %}checked{% endif %}> Femenino
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="genero" value="femenino"
+                        {% if user.get("genero") == "femenino" %}checked{% endif %}>
+                        <label class="form-check-label" style="color: #4da3ff;">
+                            Femenino
+                        </label>
                     </div>
 
-                    <div>
-                        <input type="radio" name="genero" value="otro"
-                        {% if user.get("genero") == "otro" %}checked{% endif %}> Otro
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="genero" value="otro"
+                        {% if user.get("genero") == "otro" %}checked{% endif %}>
+                        <label class="form-check-label" style="color: #4da3ff;">
+                            Otro
+                        </label>
                     </div>
                 </div>
 
-                <button class="btn btn-primary w-100">Guardar cambios</button>
+                <button class="btn btn-primary w-100 mb-3">Guardar cambios</button>
 
             </form>
         </div>
